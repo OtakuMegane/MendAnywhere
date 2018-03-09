@@ -1,0 +1,20 @@
+name: MendAnywhere
+main: com.minefit.xerxestireiron.mendanywhere.MendAnywhere
+version: 0.9
+website: https://github.com/OtakuMegane/MendAnywhere
+author: XerxesTireIron
+description: Uses your existing xp for mending.
+load: postworld
+
+commands:
+    mendthis:
+        description: 'Commands for MendAnywhere'
+        usage: /mendthis
+permissions:
+    mendanywhere.*:
+        description: Full access to MendAnywhere commands
+        children:
+            mendanywhere.mend: true
+        mendanywhere.mend:
+            description: Can mend object in hand
+            default: op
