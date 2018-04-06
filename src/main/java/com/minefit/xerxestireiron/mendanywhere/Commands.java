@@ -35,48 +35,41 @@ public class Commands implements CommandExecutor {
             return true;
         }
 
-        objectInHand = repairItem(objectInHand, player);
-
+        repairItem(objectInHand, player);
         return true;
     }
 
     private boolean validObject(ItemStack item) {
         Material itemType = item.getType();
-
-        if (!item.getItemMeta().hasEnchant(Enchantment.MENDING) || itemType.getMaxDurability() <= 0) {
-            return false;
-        }
-
-        return true;
+        return item.containsEnchantment(Enchantment.MENDING) && itemType.getMaxDurability() > 0;
     }
 
-    private ItemStack repairItem(ItemStack item, Player player) {
+    private void repairItem(ItemStack item, Player player) {
         short durability = item.getDurability();
-        int currentExp = Experience.getExp(player);
+        int playerExp = Experience.getExp(player);
 
         if (durability == 0) {
             player.sendMessage("This item does not need mending.");
-            return item;
+            return;
         }
 
-        if (currentExp <= 0) {
+        if (playerExp <= 0) {
             player.sendMessage("You don't have any exp to mend with.");
-            return item;
+            return;
         }
 
         int expNeeded = durability / 2;
 
-        if (currentExp >= expNeeded) {
+        if (playerExp >= expNeeded) {
             item.setDurability((short) 0);
             player.sendMessage("This item has been fully mended!");
         } else {
-            int mendableDurability = durability - (currentExp * 2);
-            item.setDurability((short) (durability - mendableDurability));
+            int mendableDurability = durability - (playerExp * 2);
+            item.setDurability((short) (mendableDurability));
             player.sendMessage("This item has been partially mended!");
         }
 
         Experience.changeExp(player, (int) -expNeeded);
-        return item;
+        return;
     }
-
 }
