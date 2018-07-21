@@ -1,10 +1,11 @@
 name: MendAnywhere
 main: com.minefit.xerxestireiron.mendanywhere.MendAnywhere
-version: 0.9
+version: 0.9.1
 website: https://github.com/OtakuMegane/MendAnywhere
 author: XerxesTireIron
 description: Uses your existing xp for mending.
 load: postworld
+api-version: 1.13
 
 commands:
     mendthis:
